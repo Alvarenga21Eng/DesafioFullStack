@@ -1,4 +1,6 @@
 using DesafioFullStack.Data;
+using DesafioFullStack.Integration;
+using DesafioFullStack.Integration.Interfaces;
 using DesafioFullStack.Integration.Refit;
 using DesafioFullStack.Repository;
 using DesafioFullStack.Repository.Interfaces;
@@ -28,11 +30,12 @@ builder.Services.AddEntityFrameworkSqlServer()
 
 builder.Services.AddScoped<ICompany, CompanyRepository>();
 builder.Services.AddScoped<ISupplier, SupplierRepository>();
+builder.Services.AddScoped<IApiCepIntegration, ApiCepIntegration>();
 
 builder.Services.AddRefitClient<IApiCepIntegrationRefit>().ConfigureHttpClient(
     c =>
     {
-        c.BaseAddress = new Uri("https://h-apigateway.conectagov.estaleiro.serpro.gov.br/api-cep/v1");
+        c.BaseAddress = new Uri("https://viacep.com.br");
     });
 
 var app = builder.Build();

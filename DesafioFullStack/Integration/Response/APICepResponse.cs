@@ -3,14 +3,15 @@
     public class APICepResponse
     {
         public string? Cep { get; set; }
-        public string? CepType { get; set; }
-        public string? CepSubType { get; set; }
+        public string? Logradouro { get; set; }
+        public string? Complemento { get; set; }
+        public string? Bairro { get; set; }
+        public string? Localidade { get; set; }
         public string? Uf { get; set; }
-        public string? City { get; set; }
-        public string? Neighborhood { get; set; }
-        public string? Address { get; set; }
-        public string? Complement { get; set; }
-        public string? IBGECode { get; set; }
+        public string? Ibge { get; set; }
+        public string? Gia { get; set; }
+        public string? Ddd { get; set; }
+        public string? Siafi { get; set; }
 
     }
 }

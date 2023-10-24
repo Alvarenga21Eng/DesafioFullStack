@@ -5,7 +5,7 @@ namespace DesafioFullStack.Integration.Refit
 {
     public interface IApiCepIntegrationRefit
     {
-        [Get("/consulta/cep/{cep}")]
+        [Get("/ws/{cep}/json/")]
         Task<ApiResponse<APICepResponse>> GetDataApiCep(string cep);
     }
 }
