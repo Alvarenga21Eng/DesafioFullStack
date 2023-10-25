@@ -2,17 +2,16 @@
 {
     public class Company
     {
-        public string CNPJ { get; set; }
+        public string Cnpj { get; set; }
         public string TradeName { get; set; }
-        public string CEP { get; set; }
+        public string Cep { get; set; }
+        public ICollection<CompanySupplier> CompaniesSuppliers { get; set; }
 
-        public Company() { }
-
-        public Company(string pCNPJ, string pTradeName, string pCEP)
+        public Company(string cnpj, string tradeName, string cep)
         {
-            CNPJ = pCNPJ;
-            TradeName = pTradeName;
-            CEP = pCEP;
+            Cnpj = cnpj;
+            TradeName = tradeName;
+            Cep = cep;
         }
     }
 }

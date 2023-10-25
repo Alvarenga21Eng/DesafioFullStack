@@ -25,16 +25,16 @@ namespace DesafioFullStack.Controllers
         }
 
         [HttpGet("cnpj/{CNPJ}")]
-        public async Task<ActionResult<Supplier>> GetSupplierByCNPJ(string CNPJ)
+        public async Task<ActionResult<Supplier>> GetSupplierByCnpj(string cnpj)
         {
-            Supplier supplier = await _supplierRepository.GetSupplierByCNPJ(CNPJ);
+            Supplier supplier = await _supplierRepository.GetSupplierByCnpj(cnpj);
             return Ok(supplier);
         }
 
         [HttpGet("name/{name}")]
         public async Task<ActionResult<Supplier>> GetSupplierByName(string name)
         {
-            Supplier supplier = await _supplierRepository.GetSupplierByCNPJ(name);
+            Supplier supplier = await _supplierRepository.GetSupplierByCnpj(name);
             return Ok(supplier);
         }
 
@@ -46,18 +46,18 @@ namespace DesafioFullStack.Controllers
         }
 
         [HttpPut("{CNPJ}")]
-        public async Task<ActionResult<Supplier>> UpdateSupplier([FromBody] Supplier supplier, string CNPJ)
+        public async Task<ActionResult<Supplier>> UpdateSupplier([FromBody] Supplier supplier, string cnpj)
         {
 
-            Supplier supplierRep = await _supplierRepository.UpdateSupplier(supplier, CNPJ);
+            Supplier supplierRep = await _supplierRepository.UpdateSupplier(supplier, cnpj);
             return Ok(supplierRep);
         }
 
         [HttpDelete("{CNPJ}")]
-        public async Task<ActionResult<Supplier>> DeleteSupplier(string CNPJ)
+        public async Task<ActionResult<Supplier>> DeleteSupplier(string cnpj)
         {
 
-            bool deleted = await _supplierRepository.DeleteSupplier(CNPJ);
+            bool deleted = await _supplierRepository.DeleteSupplier(cnpj);
             return Ok(deleted);
         }
     }

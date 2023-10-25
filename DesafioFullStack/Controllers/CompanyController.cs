@@ -24,16 +24,16 @@ namespace DesafioFullStack.Controllers
         }
 
         [HttpGet("cnpj/{CNPJ}")]
-        public async Task<ActionResult<Company>> GetCompanyByCNPJ(string CNPJ)
+        public async Task<ActionResult<Company>> GetCompanyByCnpj(string cnpj)
         {
-            Company company = await _companyRepository.GetCompanyByCNPJ(CNPJ);
+            Company company = await _companyRepository.GetCompanyByCnpj(cnpj);
             return Ok(company);
         }
 
         [HttpGet("name/{name}")]
         public async Task<ActionResult<Company>> GetCompanyByTradeName(string name)
         {
-            Company company = await _companyRepository.GetCompanyByCNPJ(name);
+            Company company = await _companyRepository.GetCompanyByCnpj(name);
             return Ok(company);
         }
 
@@ -45,18 +45,18 @@ namespace DesafioFullStack.Controllers
         }
 
         [HttpPut("{CNPJ}")]
-        public async Task<ActionResult<Company>> UpdateCompany([FromBody] Company company, string CNPJ)
+        public async Task<ActionResult<Company>> UpdateCompany([FromBody] Company company, string cnpj)
         {
 
-            Company companyRep = await _companyRepository.UpdateCompany(company, CNPJ);
+            Company companyRep = await _companyRepository.UpdateCompany(company, cnpj);
             return Ok(companyRep);
         }
 
         [HttpDelete("{CNPJ}")]
-        public async Task<ActionResult<Company>> DeleteCompany(string CNPJ)
+        public async Task<ActionResult<Company>> DeleteCompany(string cnpj)
         {
 
-            bool deleted = await _companyRepository.DeleteCompany(CNPJ);
+            bool deleted = await _companyRepository.DeleteCompany(cnpj);
             return Ok(deleted);
         }
     }

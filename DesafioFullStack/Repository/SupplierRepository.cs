@@ -1,5 +1,6 @@
 ﻿using DesafioFullStack.Data;
 using DesafioFullStack.Entities;
+using DesafioFullStack.Integration.Response;
 using DesafioFullStack.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,22 +17,31 @@ namespace DesafioFullStack.Repository
 
         public async Task<Supplier> AddSupplier(Supplier supplier)
         {
+            if (supplier.CnpjCpf.Length == 11)
+            {
+                if(supplier.RG == null || supplier.Birthday == null)
+                {
+                    throw new Exception("RG and Birthday must be informed correctly " +
+                        "for registration of individual supplier.");
+                }
+                
+            } 
             await _dbContext.Suppliers.AddAsync(supplier);
             await _dbContext.SaveChangesAsync();
 
             return supplier;
         }
 
-        public async Task<bool> DeleteSupplier(string CNPJ)
+        public async Task<bool> DeleteSupplier(string cnpj)
         {
-            Supplier supplierCNPJ = await GetSupplierByCNPJ(CNPJ);
+            Supplier supplierCnpj = await GetSupplierByCnpj(cnpj);
 
-            if (supplierCNPJ == null)
+            if (supplierCnpj == null)
             {
-                throw new Exception($"Supplier by CNPJ: {CNPJ} not found in Database.");
+                throw new Exception($"Supplier by CNPJ: {cnpj} not found in Database.");
             }
 
-            _dbContext.Suppliers.Remove(supplierCNPJ);
+            _dbContext.Suppliers.Remove(supplierCnpj);
             await _dbContext.SaveChangesAsync();
 
             return true;
@@ -42,9 +52,9 @@ namespace DesafioFullStack.Repository
             return await _dbContext.Suppliers.ToListAsync();
         }
 
-        public async Task<Supplier> GetSupplierByCNPJ(string CNPJ)
+        public async Task<Supplier> GetSupplierByCnpj(string cnpj)
         {
-            return await _dbContext.Suppliers.FirstOrDefaultAsync(x => x.CNPJ == CNPJ);
+            return await _dbContext.Suppliers.FirstOrDefaultAsync(x => x.CnpjCpf == cnpj);
         }
 
         public async Task<Supplier> GetSupplierByName(string name)
@@ -52,26 +62,26 @@ namespace DesafioFullStack.Repository
             return await _dbContext.Suppliers.FirstOrDefaultAsync(x => x.Name == name);
         }
 
-        public async Task<Supplier> UpdateSupplier(Supplier supplier, string CNPJ)
+        public async Task<Supplier> UpdateSupplier(Supplier supplier, string cnpj)
         {
-            Supplier supplierCNPJ = await GetSupplierByCNPJ(CNPJ);
+            Supplier supplierCnpj = await GetSupplierByCnpj(cnpj);
 
-            if (supplierCNPJ == null) 
+            if (supplierCnpj == null) 
             {
-                throw new Exception($"Supplier by CNPJ: {CNPJ} not found in Database.");
+                throw new Exception($"Supplier by CNPJ: {cnpj} not found in Database.");
             }
 
-            supplierCNPJ.CNPJ = supplier.CNPJ;
-            supplierCNPJ.Name = supplier.Name;
-            supplierCNPJ.CEP = supplier.CEP;
-            supplierCNPJ.Email = supplier.Email;
-            supplierCNPJ.RG = supplier.RG;
-            supplierCNPJ.Birthday = supplier.Birthday;
+            supplierCnpj.CnpjCpf = supplier.CnpjCpf;
+            supplierCnpj.Name = supplier.Name;
+            supplierCnpj.Cep = supplier.Cep;
+            supplierCnpj.Email = supplier.Email;
+            supplierCnpj.RG = supplier.RG;
+            supplierCnpj.Birthday = supplier.Birthday;
 
-            _dbContext.Suppliers.Update(supplierCNPJ);
+            _dbContext.Suppliers.Update(supplierCnpj);
             await _dbContext.SaveChangesAsync();
 
-            return supplierCNPJ;
+            return supplierCnpj;
         }
     }
 }

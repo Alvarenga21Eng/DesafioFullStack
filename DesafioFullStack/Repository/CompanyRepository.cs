@@ -22,16 +22,16 @@ namespace DesafioFullStack.Repository
             return company;
         }
 
-        public async Task<bool> DeleteCompany(string CNPJ)
+        public async Task<bool> DeleteCompany(string cnpj)
         {
-            Company companyCNPJ = await GetCompanyByCNPJ(CNPJ);
+            Company companyCnpj = await GetCompanyByCnpj(cnpj);
 
-            if (companyCNPJ == null)
+            if (companyCnpj == null)
             {
-                throw new Exception($"Company by CNPJ: {CNPJ} not found in Database.");
+                throw new Exception($"Company by CNPJ: {cnpj} not found in Database.");
             }
 
-            _dbContext.Companies.Remove(companyCNPJ);
+            _dbContext.Companies.Remove(companyCnpj);
             await _dbContext.SaveChangesAsync();
 
             return true;
@@ -42,9 +42,9 @@ namespace DesafioFullStack.Repository
             return await _dbContext.Companies.ToListAsync();
         }
 
-        public async Task<Company> GetCompanyByCNPJ(string CNPJ)
+        public async Task<Company> GetCompanyByCnpj(string cnpj)
         {
-            return await _dbContext.Companies.FirstOrDefaultAsync(x => x.CNPJ == CNPJ);
+            return await _dbContext.Companies.FirstOrDefaultAsync(x => x.Cnpj == cnpj);
         }
 
         public async Task<Company> GetCompanyByTradeName(string name)
@@ -52,23 +52,23 @@ namespace DesafioFullStack.Repository
             return await _dbContext.Companies.FirstOrDefaultAsync(x => x.TradeName == name);
         }
 
-        public async Task<Company> UpdateCompany(Company company, string CNPJ)
+        public async Task<Company> UpdateCompany(Company company, string cnpj)
         {
-            Company companyCNPJ = await GetCompanyByCNPJ(CNPJ);
+            Company companyCnpj = await GetCompanyByCnpj(cnpj);
 
-            if (companyCNPJ == null) 
+            if (companyCnpj == null) 
             {
-                throw new Exception($"Company by CNPJ: {CNPJ} not found in Database.");
+                throw new Exception($"Company by CNPJ: {cnpj} not found in Database.");
             }
 
-            companyCNPJ.CNPJ = company.CNPJ;
-            companyCNPJ.TradeName = company.TradeName;
-            companyCNPJ.CEP = company.CEP;
+            companyCnpj.Cnpj = company.Cnpj;
+            companyCnpj.TradeName = company.TradeName;
+            companyCnpj.Cep = company.Cep;
 
-            _dbContext.Companies.Update(companyCNPJ);
+            _dbContext.Companies.Update(companyCnpj);
             await _dbContext.SaveChangesAsync();
 
-            return companyCNPJ;
+            return companyCnpj;
         }
     }
 }

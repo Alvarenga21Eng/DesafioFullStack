@@ -8,9 +8,9 @@ namespace DesafioFullStack.Data.Map
     {
         public void Configure(EntityTypeBuilder<Company> builder)
         {
-            builder.HasKey(x => x.CNPJ);
+            builder.HasKey(x => x.Cnpj);
             builder.Property(x => x.TradeName).IsRequired().HasMaxLength(255);
-            builder.Property(x => x.CEP).IsRequired().HasMaxLength(12);
+            builder.Property(x => x.Cep).IsRequired().HasMaxLength(12);
         }
     }
 }
